@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+Preview :
+- Login View
+![ral](assets/images/login.png)
+
+- Beranda View
+![ral](assets/images/beranda.png)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

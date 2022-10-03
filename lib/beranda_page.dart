@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/beranda_widget.dart';
 import 'package:mobile_banking/components/bottom_bar_widget.dart';
+import 'package:mobile_banking/components/bottom_bar_widget_beranda.dart';
 
 class BerandaPage extends StatefulWidget {
   const BerandaPage({Key? key, required this.title}) : super(key: key);
@@ -22,7 +23,16 @@ class _BerandaPageState extends State<BerandaPage> {
       body: const Center(
         child: BerandaWidget(),
       ),
-      bottomNavigationBar: BottomBarWidget(),
+      bottomNavigationBar: BottomBarWidgetBeranda(),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigator.pushNamed(context, '/scan');
+        },
+        tooltip: 'Transfer',
+        child: const Icon(Icons.qr_code_scanner),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
