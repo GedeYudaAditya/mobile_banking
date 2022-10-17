@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/beranda_widget.dart';
+import 'package:mobile_banking/components/beranda_widget_desktop.dart';
 import 'package:mobile_banking/components/bottom_bar_widget.dart';
 import 'package:mobile_banking/components/bottom_bar_widget_beranda.dart';
+import 'package:mobile_banking/components/contact_wiget.dart';
 
 class BerandaPage extends StatefulWidget {
   const BerandaPage({Key? key, required this.title}) : super(key: key);
@@ -20,10 +22,32 @@ class _BerandaPageState extends State<BerandaPage> {
         centerTitle: true,
         title: Text(widget.title),
       ),
-      body: const Center(
-        child: BerandaWidget(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 600) {
+            return Column(
+              children: [
+                Expanded(
+                  flex: 9,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    child: BerandaWidgetDesktop(),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: ContactWidget(),
+                )
+              ],
+            );
+          } else {
+            return const Center(child: BerandaWidget());
+          }
+        },
       ),
-      bottomNavigationBar: BottomBarWidgetBeranda(),
+      bottomNavigationBar: const BottomBarWidgetBeranda(),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
