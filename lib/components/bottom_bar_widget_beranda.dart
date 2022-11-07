@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_banking/list_user_page.dart';
 
 class BottomBarWidgetBeranda extends StatefulWidget {
   const BottomBarWidgetBeranda({Key? key}) : super(key: key);
@@ -39,7 +40,8 @@ class _BottomBarWidgetBerandaState extends State<BottomBarWidgetBeranda> {
             // ),
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/profil');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ListUserPage()));
               },
               icon: const Icon(Icons.person),
             ),

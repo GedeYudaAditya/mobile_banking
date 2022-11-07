@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/beranda_page.dart';
 import 'package:mobile_banking/home_page.dart';
+import 'package:mobile_banking/service/list_users_service.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
@@ -36,5 +37,10 @@ class MyApp extends StatelessWidget {
       },
       initialRoute: '/',
     );
+  }
+
+  getUsers() {
+    ListUsersService _service = ListUsersService();
+    _service.getDataUsers();
   }
 }
