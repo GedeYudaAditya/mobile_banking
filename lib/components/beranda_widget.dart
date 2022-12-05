@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/grid_view_widget.dart';
+import 'package:mobile_banking/model/list_users_model.dart';
 
 class BerandaWidget extends StatefulWidget {
   const BerandaWidget({Key? key}) : super(key: key);
@@ -16,6 +19,12 @@ class _BerandaWidgetState extends State<BerandaWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Ambil data yang di pasing dari halaman sebelumnya
+    var user = ModalRoute.of(context)!.settings.arguments;
+
+    // Ubah data yang di dapat dari json ke model
+    ListUsersModel myUser = user as ListUsersModel;
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -51,8 +60,9 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                       hitungPersentase(MediaQuery.of(context).size.width, 25),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    image: const DecorationImage(
-                      image: AssetImage('images/normal.gif'),
+                    image: DecorationImage(
+                      // Pakai data dari model
+                      image: NetworkImage(myUser.avatar!),
                     ),
                   ),
                 ),
@@ -71,8 +81,8 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Nasabah',
                             style: TextStyle(
                                 color: Colors.black,
@@ -80,8 +90,9 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Gede Yuda Aditya',
-                            style: TextStyle(
+                            // Pakai data dari model
+                            '${myUser.firstName!} ${myUser.lastName!}',
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
                             ),

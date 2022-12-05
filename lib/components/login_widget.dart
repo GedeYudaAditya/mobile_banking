@@ -1,4 +1,7 @@
+import 'package:dio/src/form_data.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_banking/model/list_users_model.dart';
+import 'package:mobile_banking/service/list_users_service.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final _services = ListUsersService();
 
   @override
   Widget build(BuildContext context) {
@@ -64,17 +69,43 @@ class _LoginWidgetState extends State<LoginWidget> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    if (_usernameController.text == 'yuda' &&
-                        _passwordController.text == '123') {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/beranda', (route) => false);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Username atau Password salah'),
-                        ),
-                      );
-                    }
+                    // Ni yang lama, cuma pakai if else
+                    // if (_usernameController.text == 'yuda' &&
+                    //     _passwordController.text == '123') {
+                    //   Navigator.pushNamedAndRemoveUntil(
+                    //       context, '/beranda', (route) => false);
+                    // } else {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     const SnackBar(
+                    //       content: Text('Username atau Password salah'),
+                    //     ),
+                    //   );
+                    // }
+
+                    // Ni yang baru, pakai service
+                    Future<ListUsersModel?> result = _services.loginUsers(
+                      username: _usernameController.text,
+                      password: _passwordController.text,
+                    );
+
+                    // print(result);
+
+                    result.then((value) {
+                      if (value != null) {
+                        // kalau berhasil login
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/beranda', (route) => false,
+                            // ngepasing data ke halaman beranda pakai arguments
+                            arguments: value);
+                      } else {
+                        // kalau gagal login
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Username atau Password salah'),
+                          ),
+                        );
+                      }
+                    });
                   },
                   child: const SizedBox(
                     width: 100,

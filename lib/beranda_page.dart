@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_banking/components/beranda_widget.dart';
 import 'package:mobile_banking/components/beranda_widget_desktop.dart';
 import 'package:mobile_banking/components/bottom_bar_widget.dart';
 import 'package:mobile_banking/components/bottom_bar_widget_beranda.dart';
 import 'package:mobile_banking/components/contact_wiget.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class BerandaPage extends StatefulWidget {
   const BerandaPage({Key? key, required this.title}) : super(key: key);
@@ -15,12 +17,19 @@ class BerandaPage extends StatefulWidget {
 }
 
 class _BerandaPageState extends State<BerandaPage> {
+  String _scanBarcode = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(widget.title),
+        title: Text(_scanBarcode),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -50,13 +59,32 @@ class _BerandaPageState extends State<BerandaPage> {
       bottomNavigationBar: const BottomBarWidgetBeranda(),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.pushNamed(context, '/scan');
-        },
+        onPressed: () => scanQR(),
         tooltip: 'Transfer',
         child: const Icon(Icons.qr_code_scanner),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
   }
 }

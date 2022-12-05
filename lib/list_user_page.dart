@@ -25,8 +25,14 @@ class _ListUserPageState extends State<ListUserPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     getUsers();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // print(_listUser);
     return Scaffold(
       appBar: AppBar(
@@ -39,10 +45,10 @@ class _ListUserPageState extends State<ListUserPage> {
             ListUsersModel data = _listUser[index];
             return ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(data.avatar.toString()),
+                backgroundImage: NetworkImage(data.avatar!),
               ),
-              title: Text(data.firstName.toString()),
-              subtitle: Text(data.email.toString()),
+              title: Text(data.firstName!),
+              subtitle: Text(data.email!),
               trailing: Text(data.id.toString()),
             );
           },
