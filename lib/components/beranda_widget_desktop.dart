@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/grid_view_widget.dart';
 
+import '../model/list_users_model.dart';
+
 class BerandaWidgetDesktop extends StatefulWidget {
   const BerandaWidgetDesktop({Key? key}) : super(key: key);
 
@@ -15,6 +17,16 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Ambil data yang di pasing dari halaman sebelumnya
+    var user = ModalRoute.of(context)!.settings.arguments;
+
+    // Ubah data yang di dapat dari json ke model
+    ListUsersModel myUser = user as ListUsersModel;
+
+    if (myUser.nama == null) {
+      Navigator.pushReplacementNamed(context, '/');
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: hitungPersentase(MediaQuery.of(context).size.width, 3),
@@ -54,8 +66,9 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                           MediaQuery.of(context).size.width, 25),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        image: const DecorationImage(
-                          image: AssetImage('images/normal.gif'),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://reqres.in/img/faces/${myUser.user_id}-image.jpg'),
                         ),
                       ),
                     ),
@@ -75,8 +88,8 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Nasabah',
                                 style: TextStyle(
                                     color: Colors.black,
@@ -84,8 +97,8 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Gede Yuda Aditya',
-                                style: TextStyle(
+                                myUser.nama!,
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                 ),
@@ -106,8 +119,8 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Total Saldo Anda',
                                 style: TextStyle(
                                     color: Colors.black,
@@ -115,8 +128,8 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Rp. 1.200.000',
-                                style: TextStyle(
+                                'Rp.${myUser.saldo!}',
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                 ),

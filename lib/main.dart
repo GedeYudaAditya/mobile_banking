@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/beranda_page.dart';
 import 'package:mobile_banking/home_page.dart';
+import 'package:mobile_banking/register_page.dart';
 import 'package:mobile_banking/service/list_users_service.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const HomePage(title: 'Koprasi Undiksha'),
+        '/register': (context) => RegisterPage(),
         '/beranda': (context) => const BerandaPage(title: 'Koprasi Undiksha'),
       },
       initialRoute: '/',

@@ -84,7 +84,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                     // Ni yang baru, pakai service
                     Future<ListUsersModel?> result = _services.loginUsers(
-                      username: _usernameController.text,
+                      email: _usernameController.text,
                       password: _passwordController.text,
                     );
 
@@ -95,7 +95,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                         // kalau berhasil login
                         Navigator.pushNamedAndRemoveUntil(
                             context, '/beranda', (route) => false,
-                            // ngepasing data ke halaman beranda pakai arguments
                             arguments: value);
                       } else {
                         // kalau gagal login
@@ -120,7 +119,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
                       child: const Text('Daftar Mbanking'),
                     ),
                     TextButton(

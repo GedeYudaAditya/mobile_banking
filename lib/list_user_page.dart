@@ -18,7 +18,6 @@ class _ListUserPageState extends State<ListUserPage> {
     ListUsersService _service = ListUsersService();
     await _service.getDataUsers().then((value) {
       setState(() {
-        // print(_listUser);
         _listUser = value!;
       });
     });
@@ -43,13 +42,15 @@ class _ListUserPageState extends State<ListUserPage> {
           itemCount: _listUser.length,
           itemBuilder: (context, index) {
             ListUsersModel data = _listUser[index];
+            print(data.nama);
             return ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(data.avatar!),
+                backgroundImage: NetworkImage(
+                    'https://reqres.in/img/faces/${data.user_id!}-image.jpg'),
               ),
-              title: Text(data.firstName!),
-              subtitle: Text(data.email!),
-              trailing: Text(data.id.toString()),
+              title: Text(data.nama!),
+              subtitle: Text(data.username!),
+              trailing: Text(data.user_id.toString()),
             );
           },
         ),

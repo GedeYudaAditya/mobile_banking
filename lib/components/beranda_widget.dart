@@ -25,6 +25,9 @@ class _BerandaWidgetState extends State<BerandaWidget> {
     // Ubah data yang di dapat dari json ke model
     ListUsersModel myUser = user as ListUsersModel;
 
+    if (myUser.nama == null) {
+      Navigator.pushReplacementNamed(context, '/');
+    }
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -62,7 +65,8 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       // Pakai data dari model
-                      image: NetworkImage(myUser.avatar!),
+                      image: NetworkImage(
+                          'https://reqres.in/img/faces/${myUser.user_id}-image.jpg'),
                     ),
                   ),
                 ),
@@ -91,7 +95,7 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                           ),
                           Text(
                             // Pakai data dari model
-                            '${myUser.firstName!} ${myUser.lastName!}',
+                            myUser.nama!,
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -115,8 +119,8 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             'Total Saldo Anda',
                             style: TextStyle(
                                 color: Colors.black,
@@ -124,8 +128,8 @@ class _BerandaWidgetState extends State<BerandaWidget> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Rp. 1.200.000',
-                            style: TextStyle(
+                            '${myUser.saldo!}',
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
                             ),

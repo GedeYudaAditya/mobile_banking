@@ -29,7 +29,7 @@ class _BerandaPageState extends State<BerandaPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(_scanBarcode),
+        title: const Text('Mobile banking Undiksha'),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -73,7 +73,10 @@ class _BerandaPageState extends State<BerandaPage> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
-      print(barcodeScanRes);
+      // print(barcodeScanRes);
+
+      // open barcodeScanRes to browser
+
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
