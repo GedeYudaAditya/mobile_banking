@@ -3,7 +3,9 @@ import 'package:mobile_banking/list_user_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class GridViewWidget extends StatefulWidget {
-  const GridViewWidget({Key? key}) : super(key: key);
+  GridViewWidget({Key? key, this.id}) : super(key: key);
+
+  int? id;
 
   @override
   State<GridViewWidget> createState() => _GridViewWidgetState();
@@ -84,33 +86,38 @@ class _GridViewWidgetState extends State<GridViewWidget> {
             ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(8),
-          color: Colors.teal[100],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.attach_money,
-                size: 50,
-                color: Color.fromARGB(255, 65, 33, 243),
-              ),
-              ResponsiveVisibility(
-                hiddenWhen: [
-                  Condition.smallerThan(name: DESKTOP),
-                ],
-                visibleWhen: [
-                  Condition.smallerThan(name: 'Midle'),
-                ],
-                child: Text(
-                  "Deposito",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 65, 33, 243),
-                    fontWeight: FontWeight.bold,
+        InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, '/tarik', arguments: widget.id);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            color: Colors.teal[100],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.attach_money,
+                  size: 50,
+                  color: Color.fromARGB(255, 65, 33, 243),
+                ),
+                ResponsiveVisibility(
+                  hiddenWhen: [
+                    Condition.smallerThan(name: DESKTOP),
+                  ],
+                  visibleWhen: [
+                    Condition.smallerThan(name: 'Midle'),
+                  ],
+                  child: Text(
+                    "Tarik",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 65, 33, 243),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Container(

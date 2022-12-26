@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/grid_view_widget.dart';
+import 'package:mobile_banking/service/shared_preference_service.dart';
 
 import '../model/list_users_model.dart';
 
@@ -18,10 +19,15 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
   @override
   Widget build(BuildContext context) {
     // Ambil data yang di pasing dari halaman sebelumnya
-    var user = ModalRoute.of(context)!.settings.arguments;
+    // var user = ModalRoute.of(context)!.settings.arguments;
 
     // Ubah data yang di dapat dari json ke model
-    ListUsersModel myUser = user as ListUsersModel;
+    ListUsersModel myUser = ListUsersModel(
+      nama: ListSharedPreference.getNama(),
+      username: ListSharedPreference.getUsername(),
+      user_id: ListSharedPreference.getId(),
+      saldo: ListSharedPreference.getSaldo(),
+    );
 
     if (myUser.nama == null) {
       Navigator.pushReplacementNamed(context, '/');
@@ -166,7 +172,7 @@ class _BerandaWidgetDesktopState extends State<BerandaWidgetDesktop> {
                 ],
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const GridViewWidget(),
+              child: GridViewWidget(id: myUser.user_id),
             ),
           ),
         ],

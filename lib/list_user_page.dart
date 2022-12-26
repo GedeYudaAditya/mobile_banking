@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/model/list_users_model.dart';
 import 'package:mobile_banking/service/list_users_service.dart';
+import 'package:mobile_banking/service/shared_preference_service.dart';
 
 class ListUserPage extends StatefulWidget {
   ListUserPage({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class ListUserPage extends StatefulWidget {
 class _ListUserPageState extends State<ListUserPage> {
   //1. buat variabel list user model
   List<ListUsersModel> _listUser = [];
+  // List<ListUsersModel> _listUser = [];
+
 
   //2. buat fungsi get data user
   getUsers() async {
@@ -21,6 +24,7 @@ class _ListUserPageState extends State<ListUserPage> {
         _listUser = value!;
       });
     });
+
   }
 
   @override
@@ -50,7 +54,11 @@ class _ListUserPageState extends State<ListUserPage> {
               ),
               title: Text(data.nama!),
               subtitle: Text(data.username!),
-              trailing: Text(data.user_id.toString()),
+              trailing: Text(data.user_id!.toString()),
+              onTap: () {
+                Navigator.pushNamed(context, '/transfer',
+                    arguments: data.user_id);
+              },
             );
           },
         ),

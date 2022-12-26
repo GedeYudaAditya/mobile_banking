@@ -3,9 +3,15 @@ import 'package:mobile_banking/beranda_page.dart';
 import 'package:mobile_banking/home_page.dart';
 import 'package:mobile_banking/register_page.dart';
 import 'package:mobile_banking/service/list_users_service.dart';
+import 'package:mobile_banking/service/shared_preference_service.dart';
+import 'package:mobile_banking/setoran_page.dart';
+import 'package:mobile_banking/tarik_page.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ListSharedPreference.init();
   runApp(const MyApp());
 }
 
@@ -36,6 +42,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomePage(title: 'Koprasi Undiksha'),
         '/register': (context) => RegisterPage(),
         '/beranda': (context) => const BerandaPage(title: 'Koprasi Undiksha'),
+        '/transfer': (context) => SetoranPage(),
+        '/tarik': (context) => TarikPage(),
       },
       initialRoute: '/',
     );

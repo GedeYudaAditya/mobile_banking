@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile_banking/components/grid_view_widget.dart';
 import 'package:mobile_banking/model/list_users_model.dart';
+import 'package:mobile_banking/service/shared_preference_service.dart';
 
 class BerandaWidget extends StatefulWidget {
   const BerandaWidget({Key? key}) : super(key: key);
@@ -165,7 +166,7 @@ class _BerandaWidgetState extends State<BerandaWidget> {
               ],
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const GridViewWidget(),
+            child: GridViewWidget(id: myUser.user_id),
           ),
           Container(
             margin: EdgeInsets.symmetric(
